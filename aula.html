@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#02060d">
+<title>Aula — WKELNIOR Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="academy-body">
+<header class="academy-topbar">
+  <a class="academy-brand" href="area-aluno.html"><span class="wk-word">WKELNIOR</span><small>ACADEMY</small></a>
+  <nav class="academy-nav"><a href="area-aluno.html">Início</a><a class="active" href="#">Trilhas</a><a href="#">Projetos</a><a href="#">Comunidade</a><a href="#">Certificados</a><a href="#">Ferramentas</a></nav>
+  <div class="academy-actions"><label class="academy-search"><span>⌕</span><input placeholder="Buscar aulas, módulos..."><kbd>⌘ K</kbd></label><button class="notify">●</button><div class="academy-avatar"><img src="assets/img/wesley-portrait.jpg" alt="Wesley"></div></div>
+</header>
+<main class="academy-shell lesson-shell">
+  <div class="breadcrumbs"><a href="area-aluno.html">⌂</a><span>›</span><a href="#">Trilhas</a><span>›</span><a href="#">Formação Completa</a><span>›</span><a href="#">Fundamentos de IA</a><span>›</span><b>Criando seu primeiro agente com IA</b></div>
+  <div class="lesson-grid">
+    <section class="lesson-main">
+      <div class="lesson-kicker">MÓDULO 1</div><div class="lesson-module-name">▤ Fundamentos de IA</div>
+      <h1>Criando seu primeiro agente com IA</h1>
+      <p class="lesson-lead">Nesta aula, você vai criar seu primeiro agente de IA do zero, entender sua estrutura e ver como ele pode executar tarefas reais de forma autônoma.</p>
+      <div class="video-player"><img src="assets/img/reference-dashboard.png" alt="Aula"><div class="video-dim"></div><button class="player-play">▶</button><div class="player-controls"><span>▶</span><span>🔊</span><div class="player-line"><i style="width:0%"></i></div><span>0:00 / 18:24</span><span class="player-spacer"></span><span>CC</span><span>⚙</span><span>▣</span><span>⛶</span></div></div>
+      <div class="lesson-action-grid"><button class="academy-btn primary big" data-complete-lesson>✓ Marcar como concluída</button><button class="academy-btn big">Próxima aula →</button></div>
+      <div class="lesson-action-grid thirds"><button class="academy-btn">⇩ Baixar anexos</button><button class="academy-btn">♡ Adicionar aos favoritos</button><button class="academy-btn">↗ Compartilhar</button></div>
+      <div class="lesson-tabs"><button data-lesson-tab="overview">▧ Visão geral</button><button data-lesson-tab="materials">▥ Materiais</button><button class="active" data-lesson-tab="discussion">▰ Dúvidas e comentários <span>(24)</span></button><button data-lesson-tab="transcript">▤ Transcrição</button></div>
+
+      <div class="lesson-tab-panel" data-lesson-panel="overview" hidden>
+        <div class="content-card"><h3>Objetivo da aula</h3><p>Entender a estrutura de um agente de IA, como separar entrada, processamento, ferramentas e resposta, e como pensar em autonomia de forma segura.</p></div>
+      </div>
+      <div class="lesson-tab-panel" data-lesson-panel="materials" hidden>
+        <div class="materials-list"><div class="material-row"><span class="file-icon pdf">PDF</span><div><b>Slides da aula</b><small>Resumo visual dos principais conceitos · 4.2 MB</small></div><button>⇩</button></div><div class="material-row"><span class="file-icon zip">ZIP</span><div><b>Código-fonte do projeto</b><small>Projeto base utilizado na aula · 1.8 MB</small></div><button>⇩</button></div></div>
+      </div>
+      <div class="lesson-tab-panel discussion-panel" data-lesson-panel="discussion">
+        <div class="question-composer"><img src="assets/img/wesley-portrait.jpg" alt=""><div class="composer-main"><textarea id="questionText" placeholder="Faça uma pergunta, compartilhe um insight ou tire sua dúvida..."></textarea><div class="composer-footer"><div class="question-types"><button class="active" data-question-type="Dúvida">? Dúvida</button><button data-question-type="Insight">✦ Insight</button></div><button class="academy-btn primary" id="publishQuestion">Publicar pergunta</button></div></div></div>
+        <div class="discussion-filters"><button class="active" data-discussion-filter="all">Todas (24)</button><button data-discussion-filter="open">Sem resposta (5)</button><button data-discussion-filter="answered">Respondidas (17)</button><button data-discussion-filter="pinned">Fixadas (2)</button><select><option>Mais recentes</option><option>Mais votadas</option></select></div>
+        <div id="discussionFeed" class="discussion-feed">
+          <article class="qa-card pinned" data-status="answered pinned"><div class="qa-pin">⚑ Resposta fixada pelo instrutor</div><div class="qa-head"><img src="assets/img/wesley-portrait.jpg" alt=""><div><b>Wesley Kelnior <span>♛</span></b><small>Instrutor · há 3 semanas</small></div><span class="badge pinned-badge">Fixada</span></div><h3>Qual a diferença entre um agente de IA e um chatbot comum?</h3><p>Um chatbot normalmente responde mensagens com base em contexto. Um agente pode executar ações reais, usar APIs, bancos de dados e planilhas, tomar decisões e trabalhar com uma sequência de tarefas para atingir um objetivo.</p><div class="qa-actions"><button>♡ 42</button><button>↩ Responder</button></div></article>
+          <article class="qa-card" data-status="open"><div class="qa-head"><div class="avatar-fallback">JC</div><div><b>Juliana Costa</b><small>há 2 dias</small></div><span class="badge open-badge">Sem resposta</span></div><h3>Consigo usar o mesmo fluxo mostrado na aula para integrar com o Notion?</h3><p>Quais seriam as principais alterações?</p><div class="qa-actions"><button>♡ 3</button><button>↩ Responder</button></div></article>
+          <article class="qa-card instructor-answer" data-status="answered"><div class="qa-head"><img src="assets/img/wesley-portrait.jpg" alt=""><div><b>Wesley Kelnior <span>♛</span></b><small>Instrutor · há 1 dia</small></div><span class="badge answered-badge">Respondida</span></div><p><b>@Juliana Costa</b> Sim. O processo é parecido. O principal ajuste está na autenticação, no formato do payload enviado e na forma como você estrutura os blocos de dados. Na aula seguinte eu mostro como separar isso para poder trocar de integração sem reescrever a interface.</p><div class="qa-actions"><button>♡ 7</button><button>↩ Responder</button></div></article>
+          <article class="qa-card" data-status="answered"><div class="qa-head"><div class="avatar-fallback">CE</div><div><b>Carlos Eduardo</b><small>há 4 dias</small></div><span class="badge answered-badge">Respondida</span></div><h3>Na parte de memória do agente, qual seria a melhor opção para projetos em produção?</h3><p>Vale mais usar um banco vetorial ou memória simples?</p><div class="qa-actions"><button>♡ 2</button><button>↩ Responder</button></div></article>
+        </div>
+      </div>
+      <div class="lesson-tab-panel" data-lesson-panel="transcript" hidden><div class="content-card"><h3>Transcrição</h3><p>00:00 — Introdução ao conceito de agente.<br>02:14 — Entrada do usuário e contexto.<br>06:40 — Ferramentas e APIs.<br>12:30 — Execução, validação e resposta.</p></div></div>
+    </section>
+
+    <aside class="lesson-sidebar">
+      <div class="side-card access-card"><span>▣</span><div><small>Seu acesso expira em</small><b>327 dias</b></div><i>›</i><div class="academy-progress full"><span style="width:41%"></span></div><strong>41%</strong></div>
+      <div class="side-card module-playlist"><div class="playlist-title"><span>◇</span><div><small>Módulo 1</small><b>Fundamentos de IA</b></div><i>›</i></div><div class="academy-progress"><span style="width:60%"></span></div><small>12 de 20 aulas concluídas</small>
+        <div class="lesson-list"><a class="done" href="#"><span>✓</span><b>Introdução ao módulo</b><small>04:12</small></a><a class="done" href="#"><span>✓</span><b>O que é Inteligência Artificial?</b><small>10:24</small></a><a class="current" href="#"><span>▶</span><b>Criando seu primeiro agente com IA</b><small>18:24</small></a><a href="#"><span>4</span><b>Tipos de agentes e casos de uso</b><small>15:30</small></a><a href="#"><span>5</span><b>Ferramentas e integrações</b><small>22:10</small></a><a href="#"><span>6</span><b>Memória e contexto</b><small>16:08</small></a><a href="#"><span>7</span><b>Boas práticas de prompt</b><small>15:30</small></a><a href="#"><span>8</span><b>Testando e otimizando seu agente</b><small>19:20</small></a><a href="#"><span>9</span><b>Colocando em produção</b><small>21:15</small></a><a href="#"><span>10</span><b>Projeto prático do módulo</b><small>26:40</small></a></div>
+      </div>
+      <div class="side-card"><div class="side-card-title"><h3>▥ Materiais da aula</h3><span>4 arquivos</span></div><div class="side-materials"><div><span class="file-icon pdf">PDF</span><p><b>Slides da aula</b><small>Resumo visual · 4.2 MB</small></p><button>⇩</button></div><div><span class="file-icon zip">ZIP</span><p><b>Código-fonte</b><small>Projeto base · 1.8 MB</small></p><button>⇩</button></div><div><span class="file-icon pdf">PDF</span><p><b>Guia de APIs</b><small>Ferramentas · 2.1 MB</small></p><button>⇩</button></div><div><span class="file-icon zip">ZIP</span><p><b>Exemplos prontos</b><small>Agentes · 3.7 MB</small></p><button>⇩</button></div></div></div>
+      <div class="side-card learnings"><h3>💡 Principais aprendizados</h3><p>✓ Entendeu agente x chatbot.</p><p>✓ Construiu um agente funcional.</p><p>✓ Aprendeu a conectar APIs.</p><p>✓ Viu aplicações reais.</p><p>✓ Está pronto para evoluir o projeto.</p></div>
+    </aside>
+  </div>
+</main>
+<script src="assets/js/app.js"></script>
+</body></html>
