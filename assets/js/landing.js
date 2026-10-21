@@ -144,6 +144,7 @@
   /* ---- vídeo ---- */
   (function video() {
     const shell = $('#videoShell'), btn = $('#playBtn'), soon = $('#videoSoon');
+    if (!shell) return; // seção de vídeo desativada
     const v = CFG.video || {};
     if (v.youtubeId || v.mp4) soon.hidden = true;
     btn.addEventListener('click', () => {
