@@ -171,6 +171,27 @@
     r1.addEventListener('input', upd); r2.addEventListener('input', upd); upd();
   })();
 
+  /* ---- aula particular (WhatsApp) ---- */
+  (function lesson() {
+    const dlg = $('#lessonModal'), go = $('#lessonGo'); if (!dlg || !CFG.whatsapp) return;
+    $('#lessonPhone').textContent = CFG.whatsappLabel || CFG.whatsapp;
+    const link = () => {
+      const nome = $('#lNome').value.trim(), tema = $('#lTema').value, per = $('#lPeriodo').value;
+      let msg = 'Olá, Wesley! Vim pela landing da WKELNIOR Academy e quero agendar uma aula particular.';
+      if (nome) msg += '\nNome: ' + nome;
+      if (tema) msg += '\nQuero criar/aprender: ' + tema;
+      if (per) msg += '\nMelhor período: ' + per;
+      go.href = 'https://wa.me/' + CFG.whatsapp + '?text=' + encodeURIComponent(msg);
+    };
+    const open = () => { link(); dlg.showModal ? dlg.showModal() : dlg.setAttribute('open', ''); if (window.gtag) gtag('event', 'open_lesson_modal'); };
+    const close = () => dlg.close ? dlg.close() : dlg.removeAttribute('open');
+    $('#openLesson').addEventListener('click', open);
+    $('#closeLesson').addEventListener('click', close);
+    dlg.addEventListener('click', e => { if (e.target === dlg) close(); });
+    $$('input,select', dlg).forEach(el => { el.addEventListener('input', link); el.addEventListener('change', link); });
+    go.addEventListener('click', () => { if (window.gtag) gtag('event', 'contact', { method: 'whatsapp_aula' }); if (window.fbq) fbq('track', 'Contact'); });
+  })();
+
   /* ---- máscara de WhatsApp ---- */
   $('#whats').addEventListener('input', e => {
     let v = e.target.value.replace(/\D/g, '').slice(0, 11);
