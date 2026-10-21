@@ -114,8 +114,8 @@
       ['ok', '✓ Telas e componentes gerados'],
       ['ok', '✓ Login e permissões configurados'],
       ['ok', '✓ Publicado no ar'],
-      ['p', '> Gerar link de cobrança…'],
-      ['ok', '✓ Pagamento configurado']
+      ['p', '> Preparar proposta de venda…'],
+      ['ok', '✓ Proposta enviada ao cliente']
     ];
     const wait = ms => new Promise(r => setTimeout(r, reduced ? 0 : ms));
     const money = (el, to) => { const t0 = performance.now(); const f = t => { const k = Math.min(1, (t - t0) / 1600); el.textContent = brl(to * k); if (k < 1) requestAnimationFrame(f); }; requestAnimationFrame(f); };
