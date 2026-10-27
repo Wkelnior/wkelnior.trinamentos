@@ -14,7 +14,7 @@ npx serve .
 
 ## Leads no Cloudflare D1
 `functions/api/lead.js` (Pages Function) recebe a lista de espera e os pedidos de aula particular e grava na tabela `leads` do banco `leads_wkelnior_academy`.
-1. Crie a tabela: no painel do D1 → Console, cole e rode `schema.sql`.
+1. A tabela é criada sozinha no primeiro cadastro (`schema.sql` fica só como referência).
 2. No projeto do Pages → Settings → Bindings → Add → D1 database: nome da variável `DB`, banco `leads_wkelnior_academy` (Production e Preview).
 3. Opcional: variável secreta `IP_SALT` com um texto aleatório (usada no hash do IP).
 4. Faça um novo deploy para o binding valer.

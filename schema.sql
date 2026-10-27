@@ -1,5 +1,6 @@
 -- Tabela de leads da WKELNIOR Academy (Cloudflare D1: leads_wkelnior_academy)
--- Rode uma vez no console do D1 (aba "Console") ou com:
+-- Referência: a tabela é criada automaticamente por functions/api/lead.js no primeiro envio.
+-- Se quiser criar à mão, rode no Console do D1 ou com:
 --   npx wrangler d1 execute leads_wkelnior_academy --remote --file=schema.sql
 
 CREATE TABLE IF NOT EXISTS leads (

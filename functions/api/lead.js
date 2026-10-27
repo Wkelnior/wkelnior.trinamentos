@@ -14,6 +14,23 @@ const txt = (v, max = 200) => {
   return s || null;
 };
 
+// Cria a tabela e os índices na primeira requisição (não precisa rodar schema.sql à mão).
+const SCHEMA = [
+  `CREATE TABLE IF NOT EXISTS leads (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    tipo TEXT NOT NULL, nome TEXT, email TEXT, whatsapp TEXT, interesse TEXT, periodo TEXT,
+    origem TEXT, utm_medium TEXT, utm_campaign TEXT, pagina TEXT, pais TEXT,
+    consentimento INTEGER NOT NULL DEFAULT 0, ip_hash TEXT,
+    status TEXT NOT NULL DEFAULT 'novo', envios INTEGER NOT NULL DEFAULT 1,
+    criado_em TEXT NOT NULL DEFAULT (datetime('now')), atualizado_em TEXT NOT NULL DEFAULT (datetime('now'))
+  )`,
+  `CREATE UNIQUE INDEX IF NOT EXISTS idx_leads_tipo_email ON leads (tipo, email)`,
+  `CREATE INDEX IF NOT EXISTS idx_leads_criado ON leads (criado_em)`,
+  `CREATE INDEX IF NOT EXISTS idx_leads_ip ON leads (ip_hash, criado_em)`,
+];
+let schemaPronto = null;
+const garantirTabela = db => (schemaPronto ??= db.batch(SCHEMA.map(s => db.prepare(s))).catch(e => { schemaPronto = null; throw e; }));
+
 async function sha256(s) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
   return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
@@ -44,6 +61,8 @@ export async function onRequestPost({ request, env }) {
   } else if (email && !EMAIL.test(email)) {
     return json({ ok: false, erro: 'E-mail inválido.' }, 400);
   }
+
+  await garantirTabela(env.DB);
 
   const ip = request.headers.get('CF-Connecting-IP') || '';
   const ipHash = ip ? (await sha256(ip + '|' + (env.IP_SALT || 'wk-academy'))).slice(0, 32) : null;
