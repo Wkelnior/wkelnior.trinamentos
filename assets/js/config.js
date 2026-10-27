@@ -4,9 +4,10 @@ window.WK_CONFIG = {
   whatsapp: "5545998100107",
   whatsappLabel: "(45) 99810-0107",
 
-  // URL do Web App do Google Apps Script que recebe a lista de espera (veja apps-script/Waitlist.gs).
-  // Enquanto estiver vazio, os cadastros ficam salvos só no navegador (modo de teste).
-  waitlistEndpoint: "",
+  // Para onde vão os leads (lista de espera e aula particular).
+  // "/api/lead" = Cloudflare D1 (functions/api/lead.js). Também aceita a URL de um Web App do Apps Script.
+  // Vazio = os cadastros ficam salvos só no navegador (modo de teste).
+  waitlistEndpoint: "/api/lead",
 
   // Vídeo de apresentação. Use um ID do YouTube ("dQw4w9WgXcQ") ou um link .mp4 / Vimeo embed.
   // Vazio = mostra o poster com o aviso "vídeo em breve".

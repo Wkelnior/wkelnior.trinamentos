@@ -171,6 +171,20 @@
     r1.addEventListener('input', upd); r2.addEventListener('input', upd); upd();
   })();
 
+  /* ---- origem do visitante (vai junto com os leads) ---- */
+  const params = new URLSearchParams(location.search);
+  const guessSource = () => {
+    const ref = document.referrer || '';
+    if (params.get('utm_source')) return params.get('utm_source');
+    if (/instagram|l\.instagram/i.test(ref)) return 'instagram';
+    if (/google/i.test(ref)) return 'google';
+    return ref ? new URL(ref).hostname : 'direto';
+  };
+  const tracking = () => ({
+    origem: guessSource(), utm_medium: params.get('utm_medium') || '', utm_campaign: params.get('utm_campaign') || '',
+    pagina: location.href.split('#')[0].split('?')[0]
+  });
+
   /* ---- aula particular (WhatsApp) ---- */
   (function lesson() {
     const dlg = $('#lessonModal'), go = $('#lessonGo'); if (!dlg || !CFG.whatsapp) return;
@@ -189,7 +203,13 @@
     $('#closeLesson').addEventListener('click', close);
     dlg.addEventListener('click', e => { if (e.target === dlg) close(); });
     $$('input,select', dlg).forEach(el => { el.addEventListener('input', link); el.addEventListener('change', link); });
-    go.addEventListener('click', () => { if (window.gtag) gtag('event', 'contact', { method: 'whatsapp_aula' }); if (window.fbq) fbq('track', 'Contact'); });
+    go.addEventListener('click', () => {
+      // Registra o pedido no D1 sem atrasar a abertura do WhatsApp.
+      if (CFG.waitlistEndpoint.startsWith('/') && navigator.sendBeacon) {
+        const lead = { tipo: 'aula_particular', ...tracking(), nome: $('#lNome').value.trim(), interesse: $('#lTema').value, periodo: $('#lPeriodo').value };
+        navigator.sendBeacon(CFG.waitlistEndpoint, new Blob([JSON.stringify(lead)], { type: 'application/json' }));
+      }
+      if (window.gtag) gtag('event', 'contact', { method: 'whatsapp_aula' }); if (window.fbq) fbq('track', 'Contact'); });
   })();
 
   /* ---- máscara de WhatsApp ---- */
@@ -200,14 +220,6 @@
   });
 
   /* ---- formulário da lista de espera ---- */
-  const params = new URLSearchParams(location.search);
-  const guessSource = () => {
-    const ref = document.referrer || '';
-    if (params.get('utm_source')) return params.get('utm_source');
-    if (/instagram|l\.instagram/i.test(ref)) return 'instagram';
-    if (/google/i.test(ref)) return 'google';
-    return ref ? new URL(ref).hostname : 'direto';
-  };
   const fm = $('#leadForm'), err = $('#formErr'), ok = $('#formOk'), btn = $('#submitBtn');
   const showErr = m => { err.textContent = m; err.hidden = false; };
   const confetti = () => {
@@ -230,13 +242,17 @@
     if (!$('#consent').checked) return showErr('Marque a caixa de consentimento para continuar.');
     if (f.website) return; // honeypot: bot
     const payload = {
+      tipo: 'lista_espera', ...tracking(), consentimento: true,
       nome: f.nome.trim(), email: f.email.trim().toLowerCase(), whatsapp: f.whatsapp || '', interesse: f.interesse || '',
-      origem: guessSource(), utm_medium: params.get('utm_medium') || '', utm_campaign: params.get('utm_campaign') || '',
-      pagina: location.href.split('#')[0], data: new Date().toISOString()
+      data: new Date().toISOString()
     };
     btn.classList.add('loading'); btn.disabled = true;
     try {
-      if (CFG.waitlistEndpoint) {
+      if (CFG.waitlistEndpoint.startsWith('/')) {
+        const res = await fetch(CFG.waitlistEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        const r = await res.json().catch(() => ({}));
+        if (!res.ok || !r.ok) return showErr(r.erro || 'Não foi possível enviar agora. Tente novamente em instantes.');
+      } else if (CFG.waitlistEndpoint) {
         await fetch(CFG.waitlistEndpoint, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
       } else {
         try { const q = JSON.parse(localStorage.getItem('wk_waitlist') || '[]'); q.push(payload); localStorage.setItem('wk_waitlist', JSON.stringify(q)); } catch (_) {}
