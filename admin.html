@@ -5,6 +5,7 @@
 <title>Admin — WKELNIOR Academy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/consent.css">
 </head>
 <body class="academy-body admin-body">
 <header class="academy-topbar">
@@ -45,4 +46,5 @@
 <div class="admin-modal" id="moduleModal"><div class="modal-panel"><button class="modal-close" data-close-modal>×</button><span class="hero-chip">NOVO CONTEÚDO</span><h2>Criar módulo</h2><label>Nome do módulo<input id="newModuleName" value="Novo módulo avançado"></label><label>Quantidade inicial de aulas<input id="newModuleLessons" type="number" value="8"></label><label>Liberação<select id="newModuleRelease"><option>Por turma</option><option>Imediata</option><option>Por data</option><option>Por progresso</option><option>Manual</option></select></label><button class="academy-btn primary block" id="createModule">Criar módulo</button></div></div>
 <div class="admin-modal" id="cohortModal"><div class="modal-panel"><button class="modal-close" data-close-modal>×</button><span class="hero-chip">NOVA TURMA</span><h2>Criar grupo de alunos</h2><label>Nome da turma<input id="newCohortName" value="Turma Novembro"></label><label>Descrição<input id="newCohortDesc" value="Nova turma de lançamento"></label><label>Acesso em meses<input id="newCohortMonths" type="number" value="12"></label><button class="academy-btn primary block" id="createCohort">Criar turma</button></div></div>
 <script src="assets/js/app.js"></script>
+<script src="assets/js/consent.js"></script>
 </body></html>

@@ -1,0 +1,45 @@
+/* Consentimento de cookies (LGPD) — autônomo, funciona na landing e na plataforma */
+:root{
+  --ck-bg:#08121f;--ck-panel:#0c1a2c;--ck-line:rgba(150,185,230,.22);
+  --ck-text:#eef4ff;--ck-muted:#9fb1c7;--ck-accent:#17dcff;--ck-accent2:#0a74e0;--ck-on:#16db85;
+}
+.ck-banner{position:fixed;left:0;right:0;bottom:0;z-index:1000;padding:0 max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));pointer-events:none;font-family:Inter,"Segoe UI",Arial,sans-serif}
+.ck-card{pointer-events:auto;max-width:980px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:18px 28px;align-items:center;padding:20px 22px;border-radius:20px;background:var(--ck-bg);border:1px solid var(--ck-line);box-shadow:0 30px 80px rgba(0,0,0,.6);color:var(--ck-text);animation:ckIn .45s cubic-bezier(.2,.9,.3,1)}
+@keyframes ckIn{from{transform:translateY(30px);opacity:0}}
+.ck-card h2{margin:0 0 4px;font:700 16px Sora,Inter,sans-serif;letter-spacing:-.01em}
+.ck-card p{margin:0;color:var(--ck-muted);font-size:13.5px;line-height:1.55}
+.ck-card a,.ck-modal a{color:var(--ck-accent);text-decoration:underline;text-underline-offset:2px}
+.ck-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
+.ck-btn{appearance:none;cursor:pointer;border-radius:999px;padding:11px 18px;font:700 13px Inter,sans-serif;border:1px solid var(--ck-line);background:rgba(255,255,255,.05);color:var(--ck-text);transition:.2s;white-space:nowrap}
+.ck-btn:hover{border-color:var(--ck-accent);background:rgba(255,255,255,.09)}
+.ck-btn.solid{background:linear-gradient(135deg,var(--ck-accent),var(--ck-accent2));border-color:transparent;color:#001423}
+.ck-btn.solid:hover{filter:brightness(1.08)}
+.ck-btn.link{background:none;border-color:transparent;text-decoration:underline;text-underline-offset:3px;padding-inline:8px}
+.ck-btn:focus-visible,.ck-switch input:focus-visible+span{outline:2px solid var(--ck-accent);outline-offset:3px}
+
+.ck-overlay{position:fixed;inset:0;z-index:1001;background:rgba(2,6,12,.72);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:16px;font-family:Inter,"Segoe UI",Arial,sans-serif}
+.ck-overlay[hidden]{display:none}
+.ck-modal{width:min(620px,100%);max-height:calc(100vh - 32px);overflow:auto;border-radius:22px;background:var(--ck-panel);border:1px solid var(--ck-line);color:var(--ck-text);box-shadow:0 40px 100px rgba(0,0,0,.6)}
+.ck-modal header{padding:24px 24px 8px}.ck-modal header h2{margin:0 0 6px;font:800 21px Sora,Inter,sans-serif;letter-spacing:-.02em}.ck-modal header p{margin:0;color:var(--ck-muted);font-size:13.5px;line-height:1.55}
+.ck-cats{padding:10px 24px;display:grid;gap:10px}
+.ck-cat{border:1px solid var(--ck-line);border-radius:14px;padding:14px 16px;background:rgba(255,255,255,.02)}
+.ck-cat-top{display:flex;justify-content:space-between;align-items:center;gap:14px}
+.ck-cat b{font-size:14.5px}.ck-cat p{margin:6px 0 0;color:var(--ck-muted);font-size:13px;line-height:1.5}
+.ck-cat .ck-fixed{font-size:11px;font-weight:700;color:var(--ck-on);letter-spacing:.04em;white-space:nowrap}
+.ck-switch{position:relative;display:inline-flex;flex:none;cursor:pointer}
+.ck-switch input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+.ck-switch span{width:46px;height:26px;border-radius:99px;background:#24354d;border:1px solid var(--ck-line);position:relative;transition:.2s}
+.ck-switch span:after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s}
+.ck-switch input:checked+span{background:var(--ck-on);border-color:transparent}
+.ck-switch input:checked+span:after{transform:translateX(20px)}
+.ck-modal footer{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end;padding:16px 24px 22px;border-top:1px solid var(--ck-line);margin-top:10px}
+.ck-fab{position:fixed;left:calc(14px + env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:900;width:40px;height:40px;border-radius:50%;border:1px solid var(--ck-line);background:var(--ck-bg);color:var(--ck-text);cursor:pointer;display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.45);opacity:.8;transition:.2s}
+.ck-fab:hover{opacity:1;border-color:var(--ck-accent)}
+@media(max-width:720px){
+  .ck-card{grid-template-columns:1fr;gap:14px;padding:16px}
+  .ck-card p{font-size:12.5px}
+  .ck-actions{justify-content:stretch;gap:8px}.ck-actions .ck-btn{flex:1 1 calc(50% - 8px);white-space:normal;padding:10px 12px;font-size:12.5px}
+  .ck-actions .ck-btn.link{flex-basis:100%;order:3}
+  .ck-modal footer .ck-btn{flex:1 1 100%}
+}
+@media(prefers-reduced-motion:reduce){.ck-card{animation:none}}
