@@ -45,7 +45,7 @@ Create a premium Instagram Reel for:
 
 ## @wkelnior.academy
 
-The purpose is NOT to sell the featured 3D-printing product or the PrintControl 3D system.
+The purpose is NOT to sell the featured product or app.
 
 The purpose is to prove, visually, what the viewer can create using AI + the Premium Motion Designer skill + Claude Opus 5.5.
 
@@ -53,7 +53,7 @@ The message is:
 
 ## “I am not trying to sell you what you are seeing. I want to teach you how to create this kind of result with your own product, app or service.”
 
-The featured WKELNIOR / PrintControl 3D material is only a real-world demonstration asset.
+The featured product/app material is only a real-world demonstration asset.
 
 The viewer should understand:
 
@@ -147,11 +147,11 @@ The final result should feel like an extension of WKELNIOR, not a random AI comm
 
 # 6. REAL PRODUCT / REAL SYSTEM SOURCE
 
-Use the real PrintControl 3D product and interface as the primary demonstration example.
+Use the real product/app and its interface as the primary demonstration example.
 
 Reference URL:
 
-https://wkelnior.com/precificacao-impressao-3d/
+[LINK DO SEU PRODUTO OU APP — opcional]
 
 When possible, use:
 
@@ -164,7 +164,7 @@ When possible, use:
 
 Do NOT invent functionality that does not exist.
 
-Do NOT frame this as a sales video for PrintControl 3D.
+Do NOT frame this as a sales video for the featured product.
 
 The product is evidence of what can be transformed into premium motion.
 
@@ -310,7 +310,7 @@ Voice:
 
 Start visually simple.
 
-Show a real PrintControl 3D interface, real product asset, or real screen from the 3D-printing project.
+Show a real interface, real product asset, or real screen from the project.
 
 Do NOT start with a massive 3D explosion.
 
@@ -421,7 +421,7 @@ Then:
 
 > “Pode ser um produto físico.”
 
-Use one real 3D-printing product or physical product image.
+Use one real physical product image.
 
 Transform it into a short 2–3 second premium commercial shot.
 
@@ -685,7 +685,7 @@ Voice:
 
 > “Aí você testa com o seu produto.”
 
-Show the featured PrintControl / 3D-printing asset being replaced by a clean generic placeholder labeled:
+Show the featured product/app asset being replaced by a clean generic placeholder labeled:
 
 # SEU PRODUTO
 
@@ -930,7 +930,7 @@ Suggested key text:
 Before finalizing, verify:
 
 - Is the video clearly educational rather than a product sales ad?
-- Is PrintControl 3D presented only as a real example?
+- Is the featured product/app presented only as a real example?
 - Does the viewer understand they can use the same method with their own product/app/service?
 - Is the motion premium without being cluttered?
 - Is there only one main message per scene?
@@ -948,7 +948,7 @@ If the video feels generic, replace generated visuals with real product/app asse
 
 If the motion feels random, simplify it.
 
-If the viewer could mistake this for a PrintControl sales ad, rewrite the scene.
+If the viewer could mistake this for a sales ad for the featured product, rewrite the scene.
 
 ---
 
