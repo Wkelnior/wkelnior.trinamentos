@@ -13,5 +13,9 @@ window.WK_CONFIG = {
   video: { youtubeId: "", mp4: "" },
 
   // Quando a venda abrir: coloque o link de checkout (Asaas) e todos os CTAs viram "Garantir minha vaga".
-  checkoutUrl: ""
+  checkoutUrl: "",
+
+  // Rastreamento — só carrega depois que o visitante aceitar a categoria no aviso de cookies.
+  // gaId: ID do Google Analytics 4 ("G-XXXXXXX"). metaPixelId: ID do Pixel da Meta (Instagram/Facebook).
+  tracking: { gaId: "", metaPixelId: "" }
 };
