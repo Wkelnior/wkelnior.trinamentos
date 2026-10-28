@@ -10,6 +10,14 @@ const EXEMPLOS = [
     meta: ['Instagram Reels', '9:16 · 1080×1920', '53 s', 'Claude Opus 5.5', 'Voz clonada (ElevenLabs)'],
     video: { youtubeId: '', mp4: 'assets/video/reel-mouse-crm.mp4', poster: 'assets/video/reel-mouse-crm.jpg' },
     md: 'downloads/exemplos/reel-comenta-mouse.md'
+  },
+  {
+    id: 'reel-comenta-skill',
+    titulo: 'Reel “Comenta SKILL”',
+    resumo: 'Demonstração ao vivo de direção criativa: o pedido genérico vira um celular 3D com KPIs saindo da tela, depois quadrado, círculo, pontas, energia e explosão, tudo sincronizado com a narração gravada.',
+    meta: ['Instagram Reels', '9:16 · 60 fps', '61 s', 'Claude Opus 5.5', 'Narração original sincronizada'],
+    video: { youtubeId: '', mp4: 'assets/video/reel-skill-motion.mp4', poster: 'assets/video/reel-skill-motion.jpg' },
+    md: 'downloads/exemplos/reel-comenta-skill.md'
   }
 ];
 
