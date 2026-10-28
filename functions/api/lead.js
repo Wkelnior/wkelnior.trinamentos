@@ -36,17 +36,31 @@ async function sha256(s) {
   return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
-export async function onRequestPost({ request, env }) {
-  if (!env.DB) return json({ ok: false, erro: 'D1 não configurado (binding DB).' }, 500);
+// Envio vindo de navegador precisa ser do próprio site; Origin "null" ou malformado é recusado.
+const origemOk = (origin, url) => {
+  if (!origin) return true;
+  try { return new URL(origin).host === new URL(url).host; } catch { return false; }
+};
 
-  // Só aceita envios do próprio site.
-  const origin = request.headers.get('Origin');
-  if (origin && new URL(origin).host !== new URL(request.url).host) return json({ ok: false, erro: 'Origem não permitida.' }, 403);
+export async function onRequestPost(ctx) {
+  try {
+    return await gravar(ctx);
+  } catch (e) {
+    console.error('lead: falha ao gravar', e && e.message); // detalhe só no log, nunca na resposta
+    return json({ ok: false, erro: 'Não foi possível enviar agora. Tente novamente em instantes.' }, 500);
+  }
+}
+
+async function gravar({ request, env }) {
+  if (!env.DB) return json({ ok: false, erro: 'Serviço indisponível.' }, 503);
+
+  if (!origemOk(request.headers.get('Origin'), request.url)) return json({ ok: false, erro: 'Origem não permitida.' }, 403);
 
   const raw = await request.text();
   if (raw.length > 4000) return json({ ok: false, erro: 'Envio muito grande.' }, 413);
   let d;
   try { d = JSON.parse(raw); } catch { return json({ ok: false, erro: 'JSON inválido.' }, 400); }
+  if (!d || typeof d !== 'object' || Array.isArray(d)) return json({ ok: false, erro: 'JSON inválido.' }, 400);
 
   if (d.website) return json({ ok: true }); // honeypot: finge sucesso para o bot
 
@@ -80,10 +94,11 @@ export async function onRequestPost({ request, env }) {
     `INSERT INTO leads (tipo, nome, email, whatsapp, interesse, periodo, origem, utm_medium, utm_campaign, pagina, pais, consentimento, ip_hash)
      VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13)
      ON CONFLICT (tipo, email) DO UPDATE SET
-       nome = excluded.nome,
-       whatsapp = COALESCE(excluded.whatsapp, leads.whatsapp),
-       interesse = COALESCE(excluded.interesse, leads.interesse),
-       periodo = COALESCE(excluded.periodo, leads.periodo),
+       -- Quem só conhece o e-mail não pode sobrescrever os dados já gravados: só preenche o que estava vazio.
+       nome = COALESCE(leads.nome, excluded.nome),
+       whatsapp = COALESCE(leads.whatsapp, excluded.whatsapp),
+       interesse = COALESCE(leads.interesse, excluded.interesse),
+       periodo = COALESCE(leads.periodo, excluded.periodo),
        consentimento = MAX(leads.consentimento, excluded.consentimento),
        ip_hash = excluded.ip_hash,
        envios = leads.envios + 1,

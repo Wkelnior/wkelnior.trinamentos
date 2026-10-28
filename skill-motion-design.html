@@ -190,16 +190,6 @@ Entregue conceito criativo, storyboard, tempo de cada cena, ação visual, texto
 <script src="assets/js/menu.js"></script>
 <script src="assets/js/exemplos.js"></script>
 <script src="assets/js/motion-stage.js"></script>
-<script>
-document.getElementById('copyPrompt').addEventListener('click', async function () {
-  var btn = this, text = document.getElementById('promptText').innerText;
-  try { await navigator.clipboard.writeText(text); btn.textContent = 'Copiado ✓'; }
-  catch (e) {
-    var r = document.createRange(); r.selectNodeContents(document.getElementById('promptText'));
-    var s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = 'Selecionado, use Ctrl+C';
-  }
-  setTimeout(function () { btn.textContent = 'Copiar prompt'; }, 2200);
-});
-</script>
+<script src="assets/js/copy-prompt.js"></script>
 </body>
 </html>

@@ -1,0 +1,21 @@
+# Headers de segurança do Cloudflare Pages (vale para todo o site).
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000
+  Cross-Origin-Opener-Policy: same-origin
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://www.googletagmanager.com https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://i.ytimg.com https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com; media-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.facebook.com https://connect.facebook.net https://script.google.com https://script.googleusercontent.com; frame-src https://www.youtube-nocookie.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests
+
+# A API nunca deve ser guardada em cache.
+/api/*
+  Cache-Control: no-store
+
+# Arquivos internos do repositório não devem ser indexados.
+/apps-script/*
+  X-Robots-Tag: noindex
+/schema.sql
+  X-Robots-Tag: noindex
+/README.md
+  X-Robots-Tag: noindex
