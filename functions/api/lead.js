@@ -3,6 +3,8 @@
 const TIPOS = ['lista_espera', 'aula_particular'];
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const LIMITE = { envios: 8, minutos: 10 }; // por IP
+// Versão dos Termos de Uso / Política de Privacidade aceita no formulário. Troque quando os textos mudarem.
+const TERMO_VERSAO = '2026-10-28';
 
 const json = (body, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' } });
@@ -20,7 +22,7 @@ const SCHEMA = [
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     tipo TEXT NOT NULL, nome TEXT, email TEXT, whatsapp TEXT, interesse TEXT, periodo TEXT,
     origem TEXT, utm_medium TEXT, utm_campaign TEXT, pagina TEXT, pais TEXT,
-    consentimento INTEGER NOT NULL DEFAULT 0, ip_hash TEXT,
+    consentimento INTEGER NOT NULL DEFAULT 0, termo_versao TEXT, consentido_em TEXT, ip_hash TEXT,
     status TEXT NOT NULL DEFAULT 'novo', envios INTEGER NOT NULL DEFAULT 1,
     criado_em TEXT NOT NULL DEFAULT (datetime('now')), atualizado_em TEXT NOT NULL DEFAULT (datetime('now'))
   )`,
@@ -28,8 +30,16 @@ const SCHEMA = [
   `CREATE INDEX IF NOT EXISTS idx_leads_criado ON leads (criado_em)`,
   `CREATE INDEX IF NOT EXISTS idx_leads_ip ON leads (ip_hash, criado_em)`,
 ];
+// Colunas adicionadas depois da primeira versão: entram em tabelas que já existiam.
+const COLUNAS_NOVAS = ['termo_versao TEXT', 'consentido_em TEXT'];
 let schemaPronto = null;
-const garantirTabela = db => (schemaPronto ??= db.batch(SCHEMA.map(s => db.prepare(s))).catch(e => { schemaPronto = null; throw e; }));
+const garantirTabela = db => (schemaPronto ??= (async () => {
+  await db.batch(SCHEMA.map(s => db.prepare(s)));
+  for (const col of COLUNAS_NOVAS) {
+    try { await db.prepare(`ALTER TABLE leads ADD COLUMN ${col}`).run(); }
+    catch (e) { if (!/duplicate column/i.test(String(e && e.message))) throw e; }
+  }
+})().catch(e => { schemaPronto = null; throw e; }));
 
 async function sha256(s) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
@@ -91,8 +101,8 @@ async function gravar({ request, env }) {
   const whats = (String(d.whatsapp ?? '').replace(/\D/g, '').slice(0, 13)) || null;
 
   await env.DB.prepare(
-    `INSERT INTO leads (tipo, nome, email, whatsapp, interesse, periodo, origem, utm_medium, utm_campaign, pagina, pais, consentimento, ip_hash)
-     VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13)
+    `INSERT INTO leads (tipo, nome, email, whatsapp, interesse, periodo, origem, utm_medium, utm_campaign, pagina, pais, consentimento, ip_hash, termo_versao, consentido_em)
+     VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, CASE WHEN ?12 = 1 THEN datetime('now') END)
      ON CONFLICT (tipo, email) DO UPDATE SET
        -- Quem só conhece o e-mail não pode sobrescrever os dados já gravados: só preenche o que estava vazio.
        nome = COALESCE(leads.nome, excluded.nome),
@@ -100,6 +110,9 @@ async function gravar({ request, env }) {
        interesse = COALESCE(leads.interesse, excluded.interesse),
        periodo = COALESCE(leads.periodo, excluded.periodo),
        consentimento = MAX(leads.consentimento, excluded.consentimento),
+       -- Novo aceite registra a versão e a data mais recentes; sem aceite, mantém o registro anterior.
+       termo_versao = CASE WHEN excluded.consentimento = 1 THEN excluded.termo_versao ELSE leads.termo_versao END,
+       consentido_em = CASE WHEN excluded.consentimento = 1 THEN excluded.consentido_em ELSE leads.consentido_em END,
        ip_hash = excluded.ip_hash,
        envios = leads.envios + 1,
        atualizado_em = datetime('now')`
@@ -108,7 +121,7 @@ async function gravar({ request, env }) {
     txt(d.interesse, 300), txt(d.periodo, 60),
     txt(d.origem, 80), txt(d.utm_medium, 80), txt(d.utm_campaign, 120),
     txt(d.pagina, 300), request.cf?.country || null,
-    d.consentimento ? 1 : 0, ipHash
+    d.consentimento ? 1 : 0, ipHash, d.consentimento ? TERMO_VERSAO : null
   ).run();
 
   return json({ ok: true });

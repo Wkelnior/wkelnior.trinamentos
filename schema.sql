@@ -17,6 +17,8 @@ CREATE TABLE IF NOT EXISTS leads (
   pagina        TEXT,
   pais          TEXT,                          -- país detectado pela Cloudflare
   consentimento INTEGER NOT NULL DEFAULT 0,    -- 1 = aceitou receber novidades
+  termo_versao  TEXT,                          -- versão dos termos aceita (ex.: 2026-10-28)
+  consentido_em TEXT,                          -- data/hora do aceite (prova do consentimento, LGPD art. 8º §2º)
   ip_hash       TEXT,                          -- hash do IP (antispam), nunca o IP puro
   status        TEXT    NOT NULL DEFAULT 'novo', -- novo | contatado | cliente | descartado
   envios        INTEGER NOT NULL DEFAULT 1,    -- quantas vezes a pessoa se cadastrou
