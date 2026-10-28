@@ -59,12 +59,34 @@
       </div>
       <div class="sk-badges"><span>Feita para Claude Opus 5.5</span><span>Versão 2.4</span><span>12 módulos</span><a href="#exemplos">▶ Ver exemplos em vídeo</a></div>
     </div>
-    <div class="sk-stage" aria-hidden="true">
-      <div class="layer l1">DASHBOARD · KPIs</div>
-      <div class="layer l2">CÂMERA · PARALLAX</div>
-      <div class="layer l3">MOTION · SOM · CTA</div>
-      <div class="scan"></div>
-    </div>
+    <figure class="mo-stage" id="moStage">
+      <div class="mo-scenebox">
+      <svg class="mo-orbit" viewBox="0 0 400 400" aria-hidden="true"><g transform="rotate(-14 200 200)"><ellipse class="mo-e1" cx="200" cy="200" rx="190" ry="70"/><circle class="mo-sat" r="4"><animateMotion dur="9s" repeatCount="indefinite" path="M10 200 a190 70 0 1 0 380 0 a190 70 0 1 0 -380 0"/></circle></g><ellipse cx="200" cy="200" rx="150" ry="150"/></svg>
+      <div class="mo-kpi k1" aria-hidden="true"><small>FATURAMENTO</small><b data-count="128450" data-prefix="R$ ">R$ 0</b>
+        <svg viewBox="0 0 120 34"><path pathLength="1" d="M2 30 C20 28 26 18 40 20 S62 8 76 12 S100 2 118 4"/></svg></div>
+      <div class="mo-kpi k2" aria-hidden="true"><small>CONVERSÃO</small><b data-count="27.6" data-suffix="%" data-dec="1">0%</b>
+        <span class="mo-bars"><i style="--h:35%"></i><i style="--h:55%"></i><i style="--h:42%"></i><i style="--h:75%"></i><i style="--h:100%"></i></span></div>
+      <div class="mo-ease" aria-hidden="true"><small>EASE · SPRING</small>
+        <svg viewBox="0 0 100 60"><path class="mo-curve" d="M4 56 C30 56 34 2 60 6 S84 12 96 8"/><circle class="mo-dot" r="3.5"><animateMotion dur="2.6s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;.75;1" calcMode="spline" keySplines=".2 .8 .2 1;0 0 1 1" path="M4 56 C30 56 34 2 60 6 S84 12 96 8"/></circle></svg></div>
+      <div class="mo-phone">
+        <video muted loop playsinline preload="metadata" poster="assets/video/reel-skill-motion.jpg" aria-label="Trecho do Reel Comenta SKILL, feito com esta skill">
+          <source src="assets/video/reel-skill-motion.mp4" type="video/mp4">
+        </video>
+        <span class="mo-rec"><i></i>FEITO COM A SKILL</span>
+      </div>
+      </div>
+      <div class="mo-timeline" aria-hidden="true">
+        <div class="mo-tl-head"><span class="mo-scene">Cena · Dar vida</span><span class="mo-tc">00:00 / 01:01</span></div>
+        <div class="mo-tracks">
+          <div class="mo-track"><b>CENA</b><div class="mo-lane" data-lane="cena"></div></div>
+          <div class="mo-track"><b>VOZ</b><div class="mo-lane mo-wave"></div></div>
+          <div class="mo-track"><b>CÂMERA</b><div class="mo-lane" data-lane="cam"></div></div>
+          <div class="mo-track"><b>SOM</b><div class="mo-lane" data-lane="som"></div></div>
+          <i class="mo-playhead"></i>
+        </div>
+      </div>
+      <figcaption><a href="#exemplos">Reel “Comenta SKILL” · veja o prompt usado ↓</a></figcaption>
+    </figure>
   </section>
 
   <section class="sk-section">
@@ -167,6 +189,7 @@ Entregue conceito criativo, storyboard, tempo de cada cena, ação visual, texto
 <script src="assets/js/consent.js"></script>
 <script src="assets/js/menu.js"></script>
 <script src="assets/js/exemplos.js"></script>
+<script src="assets/js/motion-stage.js"></script>
 <script>
 document.getElementById('copyPrompt').addEventListener('click', async function () {
   var btn = this, text = document.getElementById('promptText').innerText;
