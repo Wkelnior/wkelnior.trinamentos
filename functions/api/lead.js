@@ -22,7 +22,7 @@ const SCHEMA = [
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     tipo TEXT NOT NULL, nome TEXT, email TEXT, whatsapp TEXT, interesse TEXT, periodo TEXT,
     origem TEXT, utm_medium TEXT, utm_campaign TEXT, pagina TEXT, pais TEXT,
-    consentimento INTEGER NOT NULL DEFAULT 0, termo_versao TEXT, consentido_em TEXT, ip_hash TEXT,
+    consentimento INTEGER NOT NULL DEFAULT 0, termo_versao TEXT, consentido_em TEXT, descadastrado_em TEXT, ip_hash TEXT,
     status TEXT NOT NULL DEFAULT 'novo', envios INTEGER NOT NULL DEFAULT 1,
     criado_em TEXT NOT NULL DEFAULT (datetime('now')), atualizado_em TEXT NOT NULL DEFAULT (datetime('now'))
   )`,
@@ -31,7 +31,7 @@ const SCHEMA = [
   `CREATE INDEX IF NOT EXISTS idx_leads_ip ON leads (ip_hash, criado_em)`,
 ];
 // Colunas adicionadas depois da primeira versão: entram em tabelas que já existiam.
-const COLUNAS_NOVAS = ['termo_versao TEXT', 'consentido_em TEXT'];
+const COLUNAS_NOVAS = ['termo_versao TEXT', 'consentido_em TEXT', 'descadastrado_em TEXT'];
 let schemaPronto = null;
 const garantirTabela = db => (schemaPronto ??= (async () => {
   await db.batch(SCHEMA.map(s => db.prepare(s)));
@@ -113,6 +113,9 @@ async function gravar({ request, env }) {
        -- Novo aceite registra a versão e a data mais recentes; sem aceite, mantém o registro anterior.
        termo_versao = CASE WHEN excluded.consentimento = 1 THEN excluded.termo_versao ELSE leads.termo_versao END,
        consentido_em = CASE WHEN excluded.consentimento = 1 THEN excluded.consentido_em ELSE leads.consentido_em END,
+       -- Quem tinha cancelado e se inscreve de novo, aceitando os termos, volta para a lista.
+       status = CASE WHEN excluded.consentimento = 1 AND leads.status IN ('descadastrado', 'exclusao_solicitada') THEN 'novo' ELSE leads.status END,
+       descadastrado_em = CASE WHEN excluded.consentimento = 1 THEN NULL ELSE leads.descadastrado_em END,
        ip_hash = excluded.ip_hash,
        envios = leads.envios + 1,
        atualizado_em = datetime('now')`

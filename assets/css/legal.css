@@ -37,3 +37,15 @@ tr:last-child td{border-bottom:0}
 .lg-foot{border-top:1px solid var(--lg-line);padding:28px 16px 80px;text-align:center;color:var(--lg-muted);font-size:13px}
 .lg-foot a{color:var(--lg-muted);margin:0 8px}
 @media(max-width:860px){.lg-wrap{grid-template-columns:1fr;gap:20px;padding-top:28px}.lg-toc{position:static}.lg-toc a{display:inline-block;border:0;padding:3px 10px 3px 0}}
+/* formulário de descadastro */
+.lg-form{display:grid;gap:14px;margin:22px 0}
+.lg-form label{display:grid;gap:6px;font-size:14px;font-weight:600;color:#fff}
+.lg-form input[type=email]{width:100%;padding:13px 14px;border-radius:12px;border:1px solid var(--lg-line);background:var(--lg-panel);color:var(--lg-text);font:16px Inter,sans-serif}
+.lg-form input[type=email]:focus-visible,.lg-check input:focus-visible{outline:2px solid var(--lg-accent);outline-offset:2px}
+.lg-check{display:flex!important;grid-template-columns:none;align-items:flex-start;gap:10px!important;font-weight:400!important;color:#c9d6e6!important}
+.lg-check input{margin-top:5px;width:18px;height:18px;flex:none;accent-color:#10c6f0}
+.lg-form .lg-btn{justify-self:start;margin-top:0}
+.lg-form .lg-btn[disabled]{opacity:.6;cursor:wait}
+.lg-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.lg-msg{margin:0;font-size:14.5px}.lg-msg.ok{color:#3fe092}.lg-msg.err{color:#ff8a8a}
+.lg-ver{color:var(--lg-muted);font-size:13px}
